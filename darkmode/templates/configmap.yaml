@@ -1,0 +1,13 @@
+# darkmode/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: theme-config
+data:
+  index.html: |
+    <html>
+      <head><title>Dark Mode Demo</title></head>
+      <body style="background-color: {{ if eq .Values.theme "dark" }}#111{{ else }}#fff{{ end }}; color: {{ if eq .Values.theme "dark" }}#fff{{ else }}#000{{ end }};">
+        <h1>{{ .Values.theme | title }} Mode Active</h1>
+      </body>
+    </html>

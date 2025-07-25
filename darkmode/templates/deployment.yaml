@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: darkmode-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: darkmode
+  template:
+    metadata:
+      labels:
+        app: darkmode
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          volumeMounts:
+            - name: theme-html
+              mountPath: /usr/share/nginx/html/index.html
+              subPath: index.html
+          ports:
+            - containerPort: 80
+      volumes:
+        - name: theme-html
+          configMap:
+            name: theme-config
